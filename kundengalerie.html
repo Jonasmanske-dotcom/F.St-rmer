@@ -71,13 +71,48 @@ const customers = {
     "kunde2": "auto456",
     "kunde3": "fahrzeug789"
 };
-const images = {
-    "kunde1": ["auto1.jpg","auto2.jpg","auto3.jpg"],
-    "kunde2": ["auto1.jpg","auto2.jpg"],
-    "kunde3": ["auto1.jpg","auto2.jpg"]
+const customerImageCounts = {
+    kunde1: 12,
+    kunde2: 8,
+    kunde3: 5
 };
 
 // Login prüfen und Galerie laden
+function loadGallery(kunde){
+    const gallery = document.getElementById("customerGallery");
+    gallery.innerHTML = "";
+
+    const count = customerImageCounts[kunde];
+
+    for(let i = 1; i <= count; i++){
+        const imgName = String(i).padStart(2, "0") + ".jpg";
+
+        const div = document.createElement("div");
+        div.className = "gallery-item";
+
+        const img = document.createElement("img");
+        img.src = `images/kunden/${kunde}/${imgName}`;
+        img.alt = "Kundenfahrzeug";
+        img.loading = "lazy";
+        img.onclick = () => openLightbox(img.src);
+
+        const btn = document.createElement("button");
+        btn.className = "download-btn";
+        btn.textContent = "Download";
+        btn.onclick = (e) => {
+            e.stopPropagation();
+            const link = document.createElement("a");
+            link.href = img.src;
+            link.download = imgName;
+            link.click();
+        };
+
+        div.appendChild(img);
+        div.appendChild(btn);
+        gallery.appendChild(div);
+    }
+}
+
 function checkPassword(){
     const password = document.getElementById("password").value.trim();
     const loginBox = document.getElementById("loginBox");
@@ -87,33 +122,7 @@ function checkPassword(){
 
     for(const [kunde, code] of Object.entries(customers)){
         if(password === code){
-            gallery.innerHTML = "";
-            images[kunde].forEach(imgName => {
-                const div = document.createElement("div");
-                div.className="gallery-item";
-
-                const img = document.createElement("img");
-                img.src=`images/kunden/${kunde}/${imgName}`;
-                img.alt="Kundenfahrzeug";
-                img.onclick = () => openLightbox(img.src);
-
-                // Download Button (optional)
-                const btn = document.createElement("button");
-                btn.className="download-btn";
-                btn.textContent="Download";
-                btn.onclick = (e) => {
-                    e.stopPropagation();
-                    const link = document.createElement("a");
-                    link.href = img.src;
-                    link.download = imgName;
-                    link.click();
-                };
-
-                div.appendChild(img);
-                div.appendChild(btn);
-                gallery.appendChild(div);
-            });
-
+            loadGallery(kunde);
             loginBox.style.display="none";
             gallery.style.display="grid";
             found=true;
