@@ -1,0 +1,51 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; line-height: 1.6; }
+
+nav {
+    display: flex; justify-content: space-between;
+    padding: 15px 30px;
+    background: #222; color: white;
+}
+nav .logo { font-size: 1.4em; }
+nav ul { list-style: none; display: flex; gap: 15px; }
+nav a { color: #fff; text-decoration: none; font-weight: bold; }
+nav a:hover { color: #ff9800; }
+
+.hero {
+    background: url("../images/hero.jpg") center/cover no-repeat;
+    height: 400px; text-align: center;
+    display: flex; flex-direction: column;
+    justify-content: center; color: white;
+}
+.hero .btn {
+    display: inline-block; background: #ff9800;
+    padding: 10px 20px; margin-top: 15px; color: #fff; text-decoration: none;
+    font-weight: bold; border-radius: 5px;
+}
+
+.section { padding: 60px 30px; text-align: center; }
+.cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.card {
+    background: #fff; border-radius: 8px;
+    padding: 20px; width: 250px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.gallery-section .gallery {
+    display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 15px;
+}
+footer {
+    background: #222; color: #ccc; text-align: center; padding: 15px;
+}
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-link .card {
+    cursor: pointer;
+}
+
+.card-link:hover .card {
+    transform: translateY(-8px);
+}
